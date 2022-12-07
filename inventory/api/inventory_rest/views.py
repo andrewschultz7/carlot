@@ -95,6 +95,7 @@ def api_manufacturers(request):
     else:
         try:
             content = json.loads(request.body)
+            print('*******', content, '*******')
             manufacturer = Manufacturer.objects.create(**content)
             return JsonResponse(
                 manufacturer,
