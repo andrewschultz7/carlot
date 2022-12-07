@@ -12,7 +12,7 @@ class ModelForm extends React.Component {
         this.state = {
             name: '',
             picture_url: '',
-            manufacturer: '',
+            manufacturer_id: '',
             manufacturers: [],
         };
 
@@ -40,7 +40,7 @@ class ModelForm extends React.Component {
             this.setState({
                 name: '',
                 picture_url: '',
-                manufacturer: '',
+                manufacturer_id: '',
             });
             this.props.useNavigate("/models/");
         }
@@ -78,7 +78,7 @@ class ModelForm extends React.Component {
                             <h1>Add a new model</h1>
                             <form onSubmit={this.handleSubmit} id="create-model-form">
                                 <div className="form-floating mb-3">
-                                    <input onChange={this.handleChange} value={this.state.model} placeholder="Name" required type="text" name="name"
+                                    <input onChange={this.handleChange} value={this.state.name} placeholder="Name" required type="text" name="name"
                                         id="name" className="form-control" />
                                     <label htmlFor="name">Name</label>
                                 </div>
@@ -88,7 +88,7 @@ class ModelForm extends React.Component {
                                     <label htmlFor="picture_url">Picture URL</label>
                                 </div>
                                 <div className="mb-3">
-                                    <select onChange={this.handleChange} value={this.state.manufacturer} required name="manufacturer" id="manufacturer" className="form-select">
+                                    <select onChange={this.handleChange} value={this.state.manufacturer_id} required name="manufacturer_id" id="manufacturer_id" className="form-select">
                                         <option value="">Choose a manufacturer</option>
                                         {this.state.manufacturers.map(manufacturer => { return (<option key={manufacturer.id} value={manufacturer.id}>{manufacturer.name}</option>) })}
                                     </select>

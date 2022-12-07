@@ -11,7 +11,7 @@ django.setup()
 
 # Import models from sales_rest, here.
 # from sales_rest.models import Something
-from sales_rest.models import AutomobileVO, EmployeeVO, CustomerVO
+from sales_rest.models import AutomobileVO, SalesPersonVO, CustomerVO
 def get_automobile():
     response = requests.get("http://localhost:8100/api/automobiles/")
     content = json.loads(response.content)
@@ -27,12 +27,12 @@ def get_automobile():
 def get_employee():
     response = requests.get("http://localhost:8100/api/employees/")
     content = json.loads(response.content)
-    for employee in content["employees"]:
-        EmployeeVO.objects.update_or_create(
-            import_href=employee["href"],
+    for sales_person in content["sales_person"]:
+        SalesPersonVO.objects.update_or_create(
+            import_href=sales_person["href"],
             defaults={
-                'name': employee['name'],
-                'employee_number': employee['employee_number'],
+                'name': sales_person['name'],
+                'employee_number': sales_person['employee_number'],
             },
         )
 
