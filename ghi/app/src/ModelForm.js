@@ -10,7 +10,7 @@ class ModelForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            model: '',
+            name: '',
             picture_url: '',
             manufacturer: '',
             manufacturers: [],
@@ -38,7 +38,7 @@ class ModelForm extends React.Component {
 
 
             this.setState({
-                model: '',
+                name: '',
                 picture_url: '',
                 manufacturer: '',
             });
@@ -78,7 +78,7 @@ class ModelForm extends React.Component {
                             <h1>Add a new model</h1>
                             <form onSubmit={this.handleSubmit} id="create-model-form">
                                 <div className="form-floating mb-3">
-                                    <input onChange={this.handleChange} value={this.state.name} placeholder="Name" required type="text" name="name"
+                                    <input onChange={this.handleChange} value={this.state.model} placeholder="Name" required type="text" name="name"
                                         id="name" className="form-control" />
                                     <label htmlFor="name">Name</label>
                                 </div>
@@ -90,7 +90,7 @@ class ModelForm extends React.Component {
                                 <div className="mb-3">
                                     <select onChange={this.handleChange} value={this.state.manufacturer} required name="manufacturer" id="manufacturer" className="form-select">
                                         <option value="">Choose a manufacturer</option>
-                                        {this.state.manufacturers.map(manufacturer => { return (<option key={manufacturer.id} value={manufacturer.href}>{manufacturer.name}</option>) })}
+                                        {this.state.manufacturers.map(manufacturer => { return (<option key={manufacturer.id} value={manufacturer.id}>{manufacturer.name}</option>) })}
                                     </select>
                                 </div>
                                 <button className="btn btn-primary">Create</button>
