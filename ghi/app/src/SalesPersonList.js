@@ -28,7 +28,7 @@ class SalesPersonList extends React.Component {
 
 
     async handleDelete(id) {
-        const salespeopleUrl = `http://localhost8090:/api/salespeople/${id}`
+        const salespeopleUrl = `http://localhost:8090/api/salespeople/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {

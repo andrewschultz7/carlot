@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-
 class CustomerList extends React.Component {
     constructor(props) {
         super(props)
@@ -10,8 +9,6 @@ class CustomerList extends React.Component {
             customers: []
         }
     }
-
-
 
     async componentDidMount() {
         const url = 'http://localhost:8090/api/customers/';
@@ -26,9 +23,8 @@ class CustomerList extends React.Component {
         }
     }
 
-
     async handleDelete(id) {
-        const customersUrl = `http://localhost8090:/api/customers/${id}`
+        const customersUrl = `http://localhost:8090/api/customer/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {
@@ -42,9 +38,6 @@ class CustomerList extends React.Component {
         }
 
     }
-
-
-
 
     render() {
         return (
