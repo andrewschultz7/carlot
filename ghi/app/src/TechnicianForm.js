@@ -1,16 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+// import newid from './newid';
 
 
 function withNavigate(Component) {
     return (props) => <Component {...props} useNavigate={useNavigate()} />;
 }
 
-class ManufacturerForm extends React.Component {
+
+
+class TechnicianForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             name: '',
+            // employee_id = _.newid('emp'),
+            employee_id: '',
+
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,8 +27,7 @@ class ManufacturerForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = { ...this.state };
-        delete data.manufacturers
-        const binUrl = 'http://localhost:8100/api/manufacturers/';
+        const techUrl = 'http://localhost:8080/api/technicians/';
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -30,14 +35,15 @@ class ManufacturerForm extends React.Component {
                 "Content-Type": "application/json",
             }
         }
-        const response = await fetch(binUrl, fetchConfig);
+        const response = await fetch(techUrl, fetchConfig);
         if (response.ok) {
 
 
             this.setState({
                 name: '',
+                employee_id: '',
             });
-            this.props.useNavigate("/manufacturers/");
+            this.props.useNavigate("/technicians/");
         }
 
     }
@@ -50,16 +56,7 @@ class ManufacturerForm extends React.Component {
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:8100/api/manufacturers/';
 
-        const response = await fetch(url);
-
-        if (response.ok) {
-            const data = await response.json();
-            this.setState({ manufacturers: data.manufacturers });
-
-
-        }
     }
 
 
@@ -70,13 +67,19 @@ class ManufacturerForm extends React.Component {
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
-                            <h1>Add a new manufacturer</h1>
-                            <form onSubmit={this.handleSubmit} id="create-shoe-form">
+                            <h1>Add a new technician</h1>
+                            <form onSubmit={this.handleSubmit} id="create-technician-form">
                                 <div className="form-floating mb-3">
                                     <input onChange={this.handleChange} value={this.state.name} placeholder="Presenter name" required type="text" name="name"
                                         id="name" className="form-control" />
                                     <label htmlFor="name">Name</label>
                                 </div>
+                                <div className="form-floating mb-3">
+                                    <input onChange={this.handleChange} value={this.state.employee_id} placeholder="employee_id" required type="text" name="employee_id"
+                                        id="employee_id" className="form-control" />
+                                    <label htmlFor="employee_id">employee_id</label>
+                                </div>
+
                                 <button className="btn btn-primary">Create</button>
 
                             </form>
@@ -89,4 +92,4 @@ class ManufacturerForm extends React.Component {
     };
 };
 
-export default withNavigate(ManufacturerForm);
+export default withNavigate(TechnicianForm);

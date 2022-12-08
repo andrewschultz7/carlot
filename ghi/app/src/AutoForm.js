@@ -6,7 +6,7 @@ function withNavigate(Component) {
     return (props) => <Component {...props} useNavigate={useNavigate()} />;
 }
 
-class ShoeForm extends React.Component {
+class AutoForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,6 +34,7 @@ class ShoeForm extends React.Component {
                 "Content-Type": "application/json",
             }
         }
+        console.log(data, "AAAAAAAAAAA")
         const response = await fetch(binUrl, fetchConfig);
         if (response.ok) {
 
@@ -44,7 +45,7 @@ class ShoeForm extends React.Component {
                 vin: '',
                 model_id: '',
             });
-            this.props.useNavigate("/automobiles/");
+            this.props.useNavigate("/autos/");
         }
 
     }
@@ -77,8 +78,8 @@ class ShoeForm extends React.Component {
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
-                            <h1>Add a new shoe</h1>
-                            <form onSubmit={this.handleSubmit} id="create-shoe-form">
+                            <h1>Add a new automobile</h1>
+                            <form onSubmit={this.handleSubmit} id="create-auto-form">
                                 <div className="form-floating mb-3">
                                     <input onChange={this.handleChange} value={this.state.color} placeholder="Presenter name" required type="text" name="color"
                                         id="color" className="form-control" />
@@ -95,9 +96,9 @@ class ShoeForm extends React.Component {
                                     <label htmlFor="vin">VIN</label>
                                 </div>
                                 <div className="mb-3">
-                                    <select onChange={this.handleChange} value={this.state.models} required name="bin" id="bin" className="form-select">
+                                    <select onChange={this.handleChange} value={this.state.model_id} required name="model_id" id="model_id" className="form-select">
                                         <option value="">Choose a model</option>
-                                        {this.state.models.map(model => { return (<option key={models.id} value={models.href}>{models.name}</option>) })}
+                                        {this.state.models.map(model => { return (<option key={model.id} value={model.id}>{model.name}</option>) })}
                                     </select>
                                 </div>
                                 <button className="btn btn-primary">Create</button>

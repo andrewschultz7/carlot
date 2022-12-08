@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 
 
 
-class AutoList extends React.Component {
+class TechnicianList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            autos: []
+            technicians: []
         }
     }
 
 
 
     async componentDidMount() {
-        const url = 'http://localhost:8100/api/automobiles/';
+        const url = 'http://localhost:8080/api/technicians/';
 
         const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
-            this.setState({ autos: data.autos });
+            this.setState({ technicians: data.technicians });
 
 
         }
@@ -28,14 +28,14 @@ class AutoList extends React.Component {
 
 
     async handleDelete(id) {
-        const autoUrl = `http://localhost:8100/api/automobiles/${id}`
+        const techUrl = `http://localhost:8080/api/technicians/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch(autoUrl, fetchConfig);
+        const response = await fetch(techUrl, fetchConfig);
         if (response.ok) {
 
             this.componentDidMount();
@@ -56,30 +56,24 @@ class AutoList extends React.Component {
                             <table className="table table-success table-striped">
                                 <thead className="table-dark">
                                     <tr>
-                                        <td>VIN</td>
-                                        <td>Color</td>
-                                        <td>Year</td>
-                                        <td>Model</td>
-                                        <td>Manufacturer</td>
+                                        <td>Name</td>
+                                        <td>employee_id</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.autos.map(autos => {
+                                    {this.state.technicians.map(technicians => {
                                         return (
-                                            <tr key={autos.id}>
-                                                <td>{autos.vin}</td>
-                                                <td>{autos.color}</td>
-                                                <td>{autos.year}</td>
-                                                <td>{autos.model.name}</td>
-                                                <td>{autos.model.manufacturer.name}</td>
+                                            <tr key={technicians.employee_id}>
+                                                <td>{technicians.name}</td>
+                                                <td>{technicians.employee_id}</td>
                                             </tr>
                                         );
                                     })}
                                 </tbody>
                             </table>
                             <div>
-                                <Link to="/autos/new"
-                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Auto</Link>
+                                <Link to="/technicians/new"
+                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Technician</Link>
                             </div>
                         </div>
                     </div>
@@ -89,4 +83,4 @@ class AutoList extends React.Component {
     };
 };
 
-export default AutoList;
+export default TechnicianList;

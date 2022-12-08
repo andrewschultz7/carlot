@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
-class ShoesList extends React.Component {
+class ManufacturerList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,14 +28,14 @@ class ShoesList extends React.Component {
 
 
     async handleDelete(id) {
-        const shoesUrl = `http://localhost:8100/api/manufacturers/${id}`
+        const manUrl = `http://localhost:8100/api/manufacturers/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch(shoesUrl, fetchConfig);
+        const response = await fetch(manUrl, fetchConfig);
         if (response.ok) {
 
             this.componentDidMount();
@@ -70,7 +70,7 @@ class ShoesList extends React.Component {
                                 </tbody>
                             </table>
                             <div>
-                                <Link to="/shoes/new"
+                                <Link to="/manufacturers/new"
                                     className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Manufacturer</Link>
                             </div>
                         </div>
