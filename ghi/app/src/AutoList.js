@@ -53,7 +53,7 @@ class AutoList extends React.Component {
                     {/* <div className="offset-3 col-6"> */}
                     <div className="col">
                         <div className="shadow p-4 mt-4">
-                            <table className="table table-success table-striped">
+                            <table className="table table-lite table-striped">
                                 <thead className="table-dark">
                                     <tr>
                                         <td>VIN</td>
@@ -79,7 +79,7 @@ class AutoList extends React.Component {
                             </table>
                             <div>
                                 <Link to="/autos/new"
-                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Auto</Link>
+                                    className="d-block fs-3 p-2 bg-success text-white text-center text-decoration-none">New Auto</Link>
                             </div>
                         </div>
                     </div>

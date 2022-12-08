@@ -53,7 +53,7 @@ class ManufacturerList extends React.Component {
                     {/* <div className="offset-3 col-6"> */}
                     <div className="col">
                         <div className="shadow p-4 mt-4">
-                            <table className="table table-success table-striped">
+                            <table className="table table-lite table-striped">
                                 <thead className="table-dark">
                                     <tr>
                                         <td>Name</td>
@@ -71,7 +71,7 @@ class ManufacturerList extends React.Component {
                             </table>
                             <div>
                                 <Link to="/manufacturers/new"
-                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Manufacturer</Link>
+                                    className="d-block fs-3 p-2 bg-success text-white text-center text-decoration-none">New Manufacturer</Link>
                             </div>
                         </div>
                     </div>

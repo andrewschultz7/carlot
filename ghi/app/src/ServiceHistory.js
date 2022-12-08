@@ -98,7 +98,7 @@ class ServiceHistory extends React.Component {
                     {/* <div className="offset-3 col-6"> */}
                     <div className="col">
                         <div className="shadow p-4 mt-4">
-                            <table className="table table-success table-striped">
+                            <table className="table table-lite table-striped">
                                 <thead className="table-dark">
                                     <tr>
                                         <td><input onChange={this.handleChange} value={this.state.vin2} placeholder="Enter VIN" required type="text" name="vin2"
