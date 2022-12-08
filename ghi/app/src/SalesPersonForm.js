@@ -24,7 +24,7 @@ class SalesPersonForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         // delete data.manufacturers; *******NOT SURE WHAT TO DELETE - ANYTHING?*******
-        const modelsUrl = 'http://localhost:8100/api/employees/';
+        const salespeopleUrl = 'http://localhost:8090/api/salespeople/';
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -32,7 +32,7 @@ class SalesPersonForm extends React.Component {
                 "Content-Type": "application/json",
             }
         }
-        const response = await fetch(modelsUrl, fetchConfig);
+        const response = await fetch(salespeopleUrl, fetchConfig);
         if (response.ok) {
 
 
@@ -40,7 +40,7 @@ class SalesPersonForm extends React.Component {
                 name: '',
                 employee_number: '',
             });
-            this.props.useNavigate("/employees/");
+            this.props.useNavigate("/salespeople/");
         }
 
     }
@@ -62,7 +62,7 @@ class SalesPersonForm extends React.Component {
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
                             <h1>Add a new sales person</h1>
-                            <form onSubmit={this.handleSubmit} id="create-model-form">
+                            <form onSubmit={this.handleSubmit} id="create-salesperson-form">
                                 <div className="form-floating mb-3">
                                     <input onChange={this.handleChange} value={this.state.name} placeholder="Name" required type="text" name="name"
                                         id="name" className="form-control" />

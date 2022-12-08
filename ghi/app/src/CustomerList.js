@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 
 
 
-class ModelList extends React.Component {
+class CustomerList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            models: []
+            customers: []
         }
     }
 
 
 
     async componentDidMount() {
-        const url = 'http://localhost:8100/api/models/';
+        const url = 'http://localhost:8090/api/customers/';
 
         const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
-            this.setState({ models: data.models });
+            this.setState({ customers: data.customers });
 
 
         }
@@ -28,14 +28,14 @@ class ModelList extends React.Component {
 
 
     async handleDelete(id) {
-        const modelsUrl = `http://localhost:8100/api/models/${id}`
+        const customersUrl = `http://localhost8090:/api/customers/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch(modelsUrl, fetchConfig);
+        const response = await fetch(customersUrl, fetchConfig);
         if (response.ok) {
 
             this.componentDidMount();
@@ -56,28 +56,28 @@ class ModelList extends React.Component {
                             <table className="table table-success table-striped">
                                 <thead className="table-dark">
                                     <tr>
-                                        <td>Model</td>
-                                        <td>Manufacturer</td>
-                                        <td>Picture</td>
+                                        <td>Name</td>
+                                        <td>Address</td>
+                                        <td>Phone number</td>
                                         <td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.models.map(model => {
+                                    {this.state.customers.map(customer => {
                                         return (
-                                            <tr key={model.id}>
-                                                <td>{model.name}</td>
-                                                <td>{model.manufacturer.name}</td>
-                                                <td><img src={model.picture_url} className='img-thumbnail' alt="model" width="120px" height="120px" /></td>
-                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(model.id)}>Delete</button></td>
+                                            <tr key={customer.id}>
+                                                <td>{customer.name}</td>
+                                                <td>{customer.address}</td>
+                                                <td>{customer.phone}</td>
+                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(customer.id)} >Delete</button></td>
                                             </tr>
                                         );
                                     })}
                                 </tbody>
                             </table>
                             <div>
-                                <Link to="/models/new"
-                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Model</Link>
+                                <Link to="/customers/new"
+                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New Customer</Link>
                             </div>
                         </div>
                     </div>
@@ -87,4 +87,4 @@ class ModelList extends React.Component {
     };
 };
 
-export default ModelList;
+export default CustomerList;

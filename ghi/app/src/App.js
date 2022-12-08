@@ -9,9 +9,11 @@ import ManufacturerList from './ManufacturerList';
 import ManufacturerForm from './ManufacturerForm';
 import SalesList from './SalesList';
 import SaleRecordForm from './SaleRecordForm';
-import SalesHistory from './SalesHistory';
+import SalesHistoryList from './SalesHistory';
 import SalesPersonForm from './SalesPersonForm';
-import EmployeeList from './EmployeeList';
+import SalesPersonList from './SalesPersonList';
+import CustomerForm from './CustomerForm';
+import CustomerList from './CustomerList';
 
 function App(props) {
   return (
@@ -26,11 +28,13 @@ function App(props) {
           <Route path="/models/new" element={<ModelForm />} />
           {/* <Route path="/manufacturers" element={<ManufacturerList />} />
           <Route path="/manufacturers/new" element={<ManufacturerForm />} /> */}
-          {/* <Route path="/sales" element={<SalesList />} /> */}
-          {/* <Route path="/sales/new" element={<SaleRecordForm />} />
-          <Route path="/sales/history" element={<SalesHistory />} /> */}
-          {/* <Route path="/employees" element={<EmployeeList />} />
-          <Route path="/employees/new" element={<SalesPersonForm />} /> */}
+          <Route path="/sales" element={<SalesList />} />
+          <Route path="/sales/new" element={<SaleRecordForm />} />
+          <Route path="/sales/history" element={<SalesHistoryList />} />
+          <Route path="/salespeople" element={<SalesPersonList />} />
+          <Route path="/salespeople/new" element={<SalesPersonForm />} />
+          <Route path="/customers" element={<CustomerList />} />
+          <Route path="/customers/new" element={<CustomerForm />} />
         </Routes>
       </div>
     </BrowserRouter>
