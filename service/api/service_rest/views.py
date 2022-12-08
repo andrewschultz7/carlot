@@ -79,7 +79,6 @@ def api_technician(request, pk):
 def api_appointments(request):
     if request.method == "GET":
         appointment = Appointment.objects.filter(finished=False)
-        # appointment = Appointment.objects.all()
         return JsonResponse(
             {"appointments": appointment},
             encoder=AppointmentEncoder,
@@ -89,18 +88,12 @@ def api_appointments(request):
             content = json.loads(request.body)
             employee_id = content["technician"]
             technician = Technician.objects.get(employee_id=employee_id)
-            print(technician, "TTTTTTTTTTTT")
             content["technician"] = technician
-            # content["technician"] = Technician.objects.get(
-            #     employee_id=content["employee_id"]
-            # )
             try:
-                AutomobileVO.objects.get(vin=content["vin"])
-                print("TTTTTTTTTTTTT")
-                content["vip"] = True
+                if AutomobileVO.objects.get(vin=content["vin"]):
+                    content["vip"] = True
             except:
-                print("FFFFFFFFFFFFFF")
-
+                pass
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
                 appointment,
@@ -137,10 +130,6 @@ def api_appointment(request, pk):
     else:  # PUT
         try:
             appointment = Appointment.objects.get(id=pk)
-            # props = ["name"]
-            # for prop in props:
-            #     if prop in content:
-            #         setattr(appointment, prop, content[prop])
             appointment.finished = True
             appointment.save()
             return JsonResponse(

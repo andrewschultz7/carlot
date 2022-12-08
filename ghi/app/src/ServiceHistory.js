@@ -1,16 +1,16 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-
-
 
 class ServiceHistory extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             vin2: '',
-            appointments: []
+            appointments: [],
+            // changed: '',
         }
-
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.filtered.bind(this);
     }
 
 
@@ -27,6 +27,45 @@ class ServiceHistory extends React.Component {
         }
     }
 
+    filtered() {
+        if (this.state.vin2 == '') {
+            return (
+                this.state.appointments.map(appointments => {
+                    return (
+                        <tr key={appointments.id}>
+                            <td>{appointments.vin}</td>
+                            <td>{appointments.name}</td>
+                            <td>{appointments.date_time}</td>
+                            <td>{appointments.date_time}</td>
+                            <td>{appointments.technician.name}</td>
+                            <td>{appointments.reason}</td>
+                        </tr>
+                    );
+                })
+            )
+        } else {
+            return (
+                this.state.appointments.filter((appointments) => appointments.vin === this.state.vin2).map(appointments => {
+                    return (
+                        <tr key={appointments.id}>
+                            <td>{appointments.vin}</td>
+                            <td>{appointments.name}</td>
+                            <td>{appointments.date_time}</td>
+                            <td>{appointments.date_time}</td>
+                            <td>{appointments.technician.name}</td>
+                            <td>{appointments.reason}</td>
+                        </tr>
+                    );
+                })
+            )
+        }
+    }
+
+    handleChange(event) {
+        const newState = {};
+        newState[event.target.id] = event.target.value;
+        this.setState(newState)
+    }
 
     async handleSubmit(event) {
         event.preventDefault();
@@ -61,9 +100,10 @@ class ServiceHistory extends React.Component {
                         <div className="shadow p-4 mt-4">
                             <table className="table table-success table-striped">
                                 <thead className="table-dark">
-                                    <tr><td><input onChange={this.handleChange} value={this.state.vin2} placeholder="Enter VIN" required type="text" name="vin"
-                                        id="vin" className="form-control" />
-                                        <button className="btn btn-primary">Create</button></td></tr>
+                                    <tr>
+                                        <td><input onChange={this.handleChange} value={this.state.vin2} placeholder="Enter VIN" required type="text" name="vin2"
+                                            id="vin2" className="form-control" />
+                                        </td></tr>
                                     <tr>
                                         <td>VIN</td>
                                         <td>Name</td>
@@ -74,18 +114,7 @@ class ServiceHistory extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.appointments.map(appointments => {
-                                        return (
-                                            <tr key={appointments.id}>
-                                                <td>{appointments.vin}</td>
-                                                <td>{appointments.name}</td>
-                                                <td>{appointments.date_time}</td>
-                                                <td>{appointments.date_time}</td>
-                                                <td>{appointments.technician.name}</td>
-                                                <td>{appointments.reason}</td>
-                                            </tr>
-                                        );
-                                    })}
+                                    {this.filtered()}
                                 </tbody>
                             </table>
                             {/* <div>
