@@ -83,13 +83,16 @@ class ServiceList extends React.Component {
                                             <tr key={appointments.id}>
                                                 <td>{appointments.vin}</td>
                                                 <td>{appointments.name}</td>
-                                                <td>{appointments.date_time.substring(0, 10)}</td>
-                                                <td>{appointments.date_time.substring(11, 19)}</td>
+                                                <td>{new Date(appointments.date_time).toDateString()}</td>
+                                                <td>{new Date(appointments.date_time).toLocaleTimeString()}</td>
                                                 <td>{appointments.technician.name}</td>
                                                 <td>{appointments.reason}</td>
                                                 <td>{String(appointments.vip)}</td>
-                                                <td><label className="btn btn-danger" onClick={() => this.handleDelete(appointments.id)} >Cancel</label>
-                                                    <label className="btn btn-secondary" onClick={() => this.handleFinished(appointments.id)} >Finished</label></td>
+                                                <td><div className="btn-group">
+                                                    <button type="button" className="btn btn-danger" onClick={() => this.handleDelete(appointments.id)} >Cancel</button>
+                                                    <button type="button" className="btn btn-secondary" onClick={() => this.handleFinished(appointments.id)} >Finished</button>
+                                                </div>
+                                                </td>
                                             </tr>
                                         );
                                     })}

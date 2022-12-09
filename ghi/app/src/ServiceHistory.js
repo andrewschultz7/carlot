@@ -6,12 +6,11 @@ class ServiceHistory extends React.Component {
         this.state = {
             vin2: '',
             appointments: [],
-            // changed: '',
-        }
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmit = this.filtered.bind(this);
-    }
+    };
 
 
     async componentDidMount() {
@@ -24,42 +23,31 @@ class ServiceHistory extends React.Component {
             this.setState({ appointments: data.appointments });
 
 
-        }
-    }
+        };
+    };
 
-    filtered() {
-        if (this.state.vin2 == '') {
-            return (
-                this.state.appointments.map(appointments => {
-                    return (
-                        <tr key={appointments.id}>
-                            <td>{appointments.vin}</td>
-                            <td>{appointments.name}</td>
-                            <td>{appointments.date_time}</td>
-                            <td>{appointments.date_time}</td>
-                            <td>{appointments.technician.name}</td>
-                            <td>{appointments.reason}</td>
-                        </tr>
-                    );
-                })
-            )
+    filtered(vin2) {
+        let appointment_list;
+        if (vin2 === '') {
+            appointment_list = this.state.appointments
         } else {
-            return (
-                this.state.appointments.filter((appointments) => appointments.vin === this.state.vin2).map(appointments => {
-                    return (
-                        <tr key={appointments.id}>
-                            <td>{appointments.vin}</td>
-                            <td>{appointments.name}</td>
-                            <td>{appointments.date_time}</td>
-                            <td>{appointments.date_time}</td>
-                            <td>{appointments.technician.name}</td>
-                            <td>{appointments.reason}</td>
-                        </tr>
-                    );
-                })
-            )
+            appointment_list = this.state.appointments.filter(appointment => appointment.vin.includes(vin2))
         }
-    }
+        return (
+            appointment_list.map(appointment => {
+                return (
+                    <tr key={appointment.id}>
+                        <td>{appointment.vin}</td>
+                        <td>{appointment.name}</td>
+                        <td>{new Date(appointment.date_time).toDateString()}</td>
+                        <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                        <td>{appointment.technician.name}</td>
+                        <td>{appointment.reason}</td>
+                    </tr>
+                );
+            }
+            ))
+    };
 
     handleChange(event) {
         const newState = {};
@@ -78,7 +66,7 @@ class ServiceHistory extends React.Component {
             headers: {
                 "Content-Type": "application/json",
             }
-        }
+        };
         const response = await fetch(binUrl, fetchConfig);
         if (response.ok) {
 
@@ -87,15 +75,14 @@ class ServiceHistory extends React.Component {
                 vin2: '',
             });
             this.props.useNavigate("/manufacturers/");
-        }
+        };
 
-    }
+    };
 
     render() {
         return (
             <div className="container">
                 <div className="row">
-                    {/* <div className="offset-3 col-6"> */}
                     <div className="col">
                         <div className="shadow p-4 mt-4">
                             <table className="table table-lite table-striped">
@@ -114,13 +101,9 @@ class ServiceHistory extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.filtered()}
+                                    {this.filtered(this.state.vin2)}
                                 </tbody>
                             </table>
-                            {/* <div>
-                                <Link to="/service/new"
-                                    className="d-block fs-3 p-2 bg-secondary text-white text-center text-decoration-none">New appointments</Link>
-                            </div> */}
                         </div>
                     </div>
                 </div>
