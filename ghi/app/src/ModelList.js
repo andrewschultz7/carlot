@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-
 class ModelList extends React.Component {
     constructor(props) {
         super(props)
@@ -10,8 +9,6 @@ class ModelList extends React.Component {
             models: []
         }
     }
-
-
 
     async componentDidMount() {
         const url = 'http://localhost:8100/api/models/';
@@ -21,11 +18,8 @@ class ModelList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ models: data.models });
-
-
         }
     }
-
 
     async handleDelete(id) {
         const modelsUrl = `http://localhost:8100/api/models/${id}`
@@ -40,11 +34,7 @@ class ModelList extends React.Component {
 
             this.componentDidMount();
         }
-
     }
-
-
-
 
     render() {
         return (

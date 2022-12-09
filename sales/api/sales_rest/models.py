@@ -5,33 +5,34 @@ from django.db import models
 class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     vin = models.CharField(max_length=17, unique=True)
-    sold = models.BooleanField()
+    sold = models.BooleanField(default=False)
 
-class SalesPersonVO(models.Model):
+class SalesPerson(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     name = models.CharField(max_length=200)
     employee_number = models.CharField(max_length=200)
 
-class CustomerVO(models.Model):
+class Customer(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
 
 class Sale(models.Model):
-    price = models.PositiveBigIntegerField()
-    automobile = models.ForeignKey(
+    auto = models.ForeignKey(
         AutomobileVO,
         related_name = "sales",
         on_delete = models.PROTECT,
     )
-    sales_person = models.ForeignKey(
-        SalesPersonVO,
+    salesperson = models.ForeignKey(
+        SalesPerson,
         related_name = "sales",
         on_delete=models.PROTECT,
     )
     customer = models.ForeignKey(
-        CustomerVO,
+        Customer,
         related_name="sales",
         on_delete=models.PROTECT,
     )
+    price = models.PositiveBigIntegerField()
+    # sold = models.BooleanField(default=False)

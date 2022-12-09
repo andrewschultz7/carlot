@@ -10,12 +10,13 @@ class SaleRecordForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            auto: '',
+            autos: [],
             salesperson: '',
             salespeople: [],
             customer: '',
             customers: [],
-            automobile: '',
-            automobiles: [],
+            price: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +29,7 @@ class SaleRecordForm extends React.Component {
         const data = { ...this.state };
         delete data.salespeople;
         delete data.customers;
-        delete data.automobiles;
+        delete data.autos;
         const saleRecordUrl = 'http://localhost:8090/api/sales/';
         const fetchConfig = {
             method: "post",
@@ -44,13 +45,12 @@ class SaleRecordForm extends React.Component {
             this.setState({
                 salesperson: '',
                 customer: '',
-                automobile: '',
+                auto: '',
+                price: '',
             });
             this.props.useNavigate("/sales/");
         }
-
     }
-
 
     handleChange(event) {
         const newState = {};
@@ -58,18 +58,18 @@ class SaleRecordForm extends React.Component {
         this.setState(newState)
     }
 
-    async componentDidMount() {
-        const automobilesUrl = 'http://localhost:8090/api/automobiles/';
+    async automobileMount() {
+        const automobilesUrl = 'http://localhost:8100/api/automobiles/';
 
         const response = await fetch(automobilesUrl);
 
         if (response.ok) {
             const data = await response.json();
-            this.setState({ automobiles: data.automobiles});
+            this.setState({ autos: data.autos});
         };
     };
 
-    async componentDidMount() {
+    async salespeopleMount() {
         const salespeopleUrl = 'http://localhost:8090/api/salespeople/';
 
         const response = await fetch(salespeopleUrl);
@@ -80,7 +80,7 @@ class SaleRecordForm extends React.Component {
         };
     };
 
-    async componentDidMount() {
+    async customerMount() {
         const customerUrl = 'http://localhost:8090/api/customers/';
 
         const response = await fetch(customerUrl);
@@ -90,7 +90,11 @@ class SaleRecordForm extends React.Component {
             this.setState({ customers: data.customers});
         };
     };
-
+    async componentDidMount() {
+        this.automobileMount();
+        this.salespeopleMount();
+        this.customerMount();
+    }
 
     render() {
         return (
@@ -101,9 +105,9 @@ class SaleRecordForm extends React.Component {
                             <h1>Complete a new sale</h1>
                             <form onSubmit={this.handleSubmit} id="create-shoe-form">
                                 <div className="mb-3">
-                                    <select onChange={this.handleChange} value={this.state.automobile} required name="automobile" id="automobile" className="form-select">
+                                    <select onChange={this.handleChange} value={this.state.auto} required name="auto" id="auto" className="form-select">
                                         <option value="">Choose an automobile</option>
-                                        {this.state.automobiles.map(automobile => { return (<option key={automobile.id} value={automobile.href}>{automobile.name}</option>) })}
+                                        {this.state.autos.map(auto => { return (<option key={auto.vin} value={auto.vin}>{auto.vin}</option>) })}
                                     </select>
                                 </div>
                                 <div className="mb-3">
@@ -119,7 +123,7 @@ class SaleRecordForm extends React.Component {
                                     </select>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input onChange={this.handleChange} value={10} placeholder="Price" required type="number" name="price"
+                                    <input onChange={this.handleChange} value={this.state.price} placeholder="Price" required type="number" name="price"
                                         id="price" className="form-control" />
                                     <label htmlFor="manufacturer">Price</label>
                                 </div>

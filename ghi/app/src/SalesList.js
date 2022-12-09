@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-
 class SaleList extends React.Component {
     constructor(props) {
         super(props)
@@ -10,8 +9,6 @@ class SaleList extends React.Component {
             sales: []
         }
     }
-
-
 
     async componentDidMount() {
         const url = 'http://localhost:8090/api/sales/';
@@ -21,14 +18,11 @@ class SaleList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ sales: data.sales });
-
-
         }
     }
 
-
     async handleDelete(id) {
-        const salesUrl = `http://localhost8090:/api/sales/${id}`
+        const salesUrl = `http://localhost:8090/api/sales/${id}`
         const fetchConfig = {
             method: "delete",
             headers: {
@@ -37,14 +31,9 @@ class SaleList extends React.Component {
         }
         const response = await fetch(salesUrl, fetchConfig);
         if (response.ok) {
-
             this.componentDidMount();
         }
-
     }
-
-
-
 
     render() {
         return (
@@ -57,8 +46,11 @@ class SaleList extends React.Component {
                                 <thead className="table-dark">
                                     <tr>
                                         <td>Sales Person</td>
+                                        <td>Employee Number</td>
                                         <td>Customer</td>
                                         <td>Automobile</td>
+                                        <td>Price</td>
+                                        <td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,9 +58,11 @@ class SaleList extends React.Component {
                                         return (
                                             <tr key={sale.id}>
                                                 <td>{sale.salesperson.name}</td>
+                                                <td>{sale.salesperson.employee_number}</td>
                                                 <td>{sale.customer.name}</td>
-                                                <td>{sale.automobile.id}</td>
-                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(sale.id)} >Delete</button></td>
+                                                <td>{sale.auto.vin}</td>
+                                                <td>{sale.price}</td>
+                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(sale.id)}>Lemon</button></td>
                                             </tr>
                                         );
                                     })}

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-
 class SalesHistoryList extends React.Component {
     constructor(props) {
         super(props)
@@ -13,6 +12,23 @@ class SalesHistoryList extends React.Component {
             salespeople: [],
         }
     }
+
+    filtered() {
+        let sales_list;
+        sales_list = this.state.sales.filter(sale => sale.vin.includes())
+
+    return (
+        sales_list.map(sale => {
+            return (
+                <tr key={sale.id}>
+                    <td>{sale.salesperson.name}</td>
+                    <td>{sale.customer.name}</td>
+                    <td>{sale.automobile.vin}</td>
+                </tr>
+            );
+        }
+        ))
+    };
 
     handleChange(event) {
         const newState = {};
@@ -28,8 +44,6 @@ class SalesHistoryList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ sales: data.sales });
-
-
         };
     };
 
@@ -41,8 +55,6 @@ class SalesHistoryList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ salespeople: data.salespeople });
-
-
         }
     }
 
@@ -55,36 +67,20 @@ class SalesHistoryList extends React.Component {
                         <div className="shadow p-4 mt-4">
                             <h1>Salesperson History</h1>
                             <div className="mb-3">
-                                <select onChange={this.handleChange} value={this.state.salesperson} required name="salesperson" id="salesperson" className="form-select">
+                                <select onChange={this.handleChange} value={this.state.salesperson.name} required name="salesperson" id="salesperson" className="form-select">
                                     <option value="">Choose a salesperson</option>
                                     {this.state.salespeople.map(salesperson => { return (<option key={salesperson.id} value={salesperson.id}>{salesperson.name}</option>) })}
                                 </select>
                             </div>
-                            <table className="table table-success table-striped">
-                                <thead className="table-dark">
-                                    <tr>
-                                        <td>Sales Person</td>
-                                        <td>Customer</td>
-                                        <td>VIN</td>
-                                    </tr>
-                                </thead>
+                            <table>
                                 <tbody>
-                                    {this.state.sales.map(sale => {
-                                        return (
-                                            <tr key={sale.id}>
-                                                <td>{sale.salesperson.name}</td>
-                                                <td>{sale.customer.name}</td>
-                                                <td>{sale.automobile.vin}</td>
-                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(sale.id)} >Delete</button></td>
-                                            </tr>
-                                        );
-                                    })}
+                                    {/* INSERT TABLE HERE IF BROKEN */}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
         );
     };
 };

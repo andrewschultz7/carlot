@@ -24,7 +24,6 @@ class CustomerForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = { ...this.state };
-        // delete data.manufacturers; *******NOT SURE WHAT TO DELETE - ANYTHING?*******
         const customersUrl = 'http://localhost:8090/api/customers/';
         const fetchConfig = {
             method: "post",
@@ -35,7 +34,6 @@ class CustomerForm extends React.Component {
         }
         const response = await fetch(customersUrl, fetchConfig);
         if (response.ok) {
-
 
             this.setState({
                 name: '',

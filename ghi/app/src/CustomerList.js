@@ -18,8 +18,6 @@ class CustomerList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ customers: data.customers });
-
-
         }
     }
 
@@ -33,7 +31,6 @@ class CustomerList extends React.Component {
         }
         const response = await fetch(customersUrl, fetchConfig);
         if (response.ok) {
-
             this.componentDidMount();
         }
 
@@ -62,7 +59,7 @@ class CustomerList extends React.Component {
                                                 <td>{customer.name}</td>
                                                 <td>{customer.address}</td>
                                                 <td>{customer.phone}</td>
-                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(customer.id)} >Delete</button></td>
+                                                <td><button className="btn btn-dark" onClick={() => this.handleDelete(customer.id)}>Ban</button></td>
                                             </tr>
                                         );
                                     })}

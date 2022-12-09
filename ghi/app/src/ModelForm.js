@@ -18,7 +18,6 @@ class ModelForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     };
 
     async handleSubmit(event) {
@@ -36,7 +35,6 @@ class ModelForm extends React.Component {
         const response = await fetch(modelsUrl, fetchConfig);
         if (response.ok) {
 
-
             this.setState({
                 name: '',
                 picture_url: '',
@@ -44,7 +42,6 @@ class ModelForm extends React.Component {
             });
             this.props.useNavigate("/models/");
         }
-
     }
 
 
@@ -62,12 +59,8 @@ class ModelForm extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ manufacturers: data.manufacturers });
-
-
         }
     }
-
-
 
     render() {
         return (

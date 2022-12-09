@@ -17,7 +17,6 @@ class SalesPersonForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     };
 
     async handleSubmit(event) {
@@ -42,7 +41,6 @@ class SalesPersonForm extends React.Component {
             });
             this.props.useNavigate("/salespeople/");
         }
-
     }
 
     handleChange(event) {
@@ -52,7 +50,7 @@ class SalesPersonForm extends React.Component {
     }
 
     async componentDidMount() {
-
+        
     }
 
     render() {

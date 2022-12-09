@@ -18,11 +18,10 @@ def get_automobile():
     for automobile in content["autos"]:
         AutomobileVO.objects.update_or_create(
             import_href=automobile["href"],
-            vin=automobile["vin"],
             defaults={
                 'vin': automobile['vin'],
-                "color": automobile["color"],
-                "year": automobile["year"],
+                "sold": automobile["sold"],
+                "import_href": automobile["href"],
             },
         )
 
@@ -63,7 +62,7 @@ def poll():
             print("*******CAN YOU SEE ME?*******")
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(15)
+        time.sleep(5)
 
 
 if __name__ == "__main__":

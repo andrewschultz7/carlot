@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import AutomobileVO, SalesPersonVO, CustomerVO, Sale
+from .models import AutomobileVO, SalesPerson, Customer, Sale
 from common.json import ModelEncoder
 from django.views.decorators.http import require_http_methods
 import json
@@ -17,24 +17,27 @@ class AutomobileVODetailEncoder(ModelEncoder):
     ]
 
 class SalesPersonVODetailEncoder(ModelEncoder):
-    model = SalesPersonVO
+    model = SalesPerson
     properties = [
+        "import_href",
         "name",
         "employee_number",
         "id",
     ]
 
 class SalespeopleEncoder(ModelEncoder):
-    model = SalesPersonVO
+    model = SalesPerson
     properties = [
+        "import_href",
         "name",
         "employee_number",
         "id",
     ]
 
 class CustomerVODetailEncoder(ModelEncoder):
-    model = CustomerVO
+    model = Customer
     properties = [
+        "import_href",
         "name",
         "address",
         "phone",
@@ -42,8 +45,9 @@ class CustomerVODetailEncoder(ModelEncoder):
     ]
 
 class CustomerListEncoder(ModelEncoder):
-    model = CustomerVO
+    model = Customer
     properties = [
+        "import_href",
         "name",
         "address",
         "phone",
@@ -54,24 +58,29 @@ class SaleDetailEncoder(ModelEncoder):
     model = Sale
     properties = {
         "price",
-        "automobile",
-        "sales_person",
+        "auto",
+        "salesperson",
         "customer",
         "id",
+    }
+    encoders = {
+    "auto": AutomobileVODetailEncoder(),
+    "salesperson": SalesPersonVODetailEncoder(),
+    "customer": CustomerVODetailEncoder(),
     }
 
 class SaleListEncoder(ModelEncoder):
     model = Sale
     properties = [
         "price",
-        "automobile",
-        "sales_person",
+        "auto",
+        "salesperson",
         "customer",
         "id",
     ]
     encoders = {
-        "automobile": AutomobileVODetailEncoder(),
-        "sales_person": SalesPersonVODetailEncoder(),
+        "auto": AutomobileVODetailEncoder(),
+        "salesperson": SalesPersonVODetailEncoder(),
         "customer": CustomerVODetailEncoder(),
     }
 
@@ -85,26 +94,22 @@ def list_sales(request):
         )
     else:
         content = json.loads(request.body)
-        print(content, "*******LOOK HERE*******")
 
         try:
-            automobile_href = content["automobile"]
-            automobile = AutomobileVO.objects.get(import_href=automobile_href)
-            print(automobile, "*******LOOK HERE*******")
-            content["automobile"] = automobile
+            automobile_href = content["auto"]
+            automobile = AutomobileVO.objects.get(vin=automobile_href)
+            content["auto"] = automobile
 
-            sales_person_href = content["sales_person"]
-            sales_person = SalesPersonVO.objects.get(import_href=sales_person_href)
-            print(sales_person, "*******LOOK HERE*******")
-            content["sales_person"] = sales_person
+            salesperson_href = content["salesperson"]
+            salesperson = SalesPerson.objects.get(id=salesperson_href)
+            content["salesperson"] = salesperson
 
             customer_href = content["customer"]
-            customer = CustomerVO.objects.get(import_href=customer_href)
-            print(customer, "*******LOOK HERE*******")
+            customer = Customer.objects.get(id=customer_href)
             content["customer"] = customer
 
         except AutomobileVO.DoesNotExist:
-            return json(
+            return JsonResponse(
                 {"message": "Bad automobile ID"},
                 status=400,
             )
@@ -126,22 +131,18 @@ def sales_history(request):
         )
     else:
         content = json.loads(request.body)
-        print(content, "*******LOOK HERE*******")
 
         try:
             automobile_href = content["automobile"]
             automobile = AutomobileVO.objects.get(import_href=automobile_href)
-            print(automobile, "*******LOOK HERE*******")
             content["automobile"] = automobile
 
             sales_person_href = content["sales_person"]
-            sales_person = SalesPersonVO.objects.get(import_href=sales_person_href)
-            print(sales_person, "*******LOOK HERE*******")
+            sales_person = SalesPerson.objects.get(import_href=sales_person_href)
             content["sales_person"] = sales_person
 
             customer_href = content["customer"]
-            customer = CustomerVO.objects.get(import_href=customer_href)
-            print(customer, "*******LOOK HERE*******")
+            customer = Customer.objects.get(import_href=customer_href)
             content["customer"] = customer
 
         except AutomobileVO.DoesNotExist:
@@ -204,16 +205,14 @@ def sale_detail(request, pk):
 def list_salespeople(request):
 
     if request.method == "GET":
-        salespeople = SalesPersonVO.objects.all()
+        salespeople = SalesPerson.objects.all()
         return JsonResponse(
             {"salespeople": salespeople},
             encoder=SalespeopleEncoder
         )
     else:
         content = json.loads(request.body)
-        print(content, "*******LOOK HERE*******")
-
-        salesperson = SalesPersonVO.objects.create(**content)
+        salesperson = SalesPerson.objects.create(**content)
         return JsonResponse(
             salesperson,
             encoder=SalesPersonVODetailEncoder,
@@ -224,22 +223,22 @@ def list_salespeople(request):
 def salesperson_detail(request, pk):
     if request.method == "GET":
         try:
-            salesperson = SalesPersonVO.objects.get(id=pk)
+            salesperson = SalesPerson.objects.get(id=pk)
             return JsonResponse(
                 salesperson,
                 encoder=SalesPersonVODetailEncoder,
                 safe=False
             )
-        except SalesPersonVO.DoesNotExist:
+        except SalesPerson.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid salesperson"},
                 status=400,
             )
     else:
         try:
-            count, _ = SalesPersonVO.objects.filter(id=pk).delete()
+            count, _ = SalesPerson.objects.filter(id=pk).delete()
             return JsonResponse({"deleted": count > 0})
-        except SalesPersonVO.DoesNotExist:
+        except SalesPerson.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid salesperson ID"},
                 status=400
@@ -249,16 +248,15 @@ def salesperson_detail(request, pk):
 def list_customers(request):
 
     if request.method == "GET":
-        customers = CustomerVO.objects.all()
+        customers = Customer.objects.all()
         return JsonResponse(
             {"customers": customers},
             encoder = CustomerListEncoder
         )
     else:
         content = json.loads(request.body)
-        print(content, "*******LOOK HERE*******")
 
-        customer = CustomerVO.objects.create(**content)
+        customer = Customer.objects.create(**content)
         return JsonResponse(
             customer,
             encoder=CustomerVODetailEncoder,
@@ -269,22 +267,22 @@ def list_customers(request):
 def customer_detail(request, pk):
     if request.method == "GET":
         try:
-            customer = CustomerVO.objects.get(id=pk)
+            customer = Customer.objects.get(id=pk)
             return JsonResponse(
                 customer,
                 encoder=CustomerVODetailEncoder,
                 safe=False
             )
-        except CustomerVO.DoesNotExist:
+        except Customer.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid customer ID"},
                 status=400,
             )
     else:
         try:
-            count, _ = CustomerVO.objects.filter(id=pk).delete()
+            count, _ = Customer.objects.filter(id=pk).delete()
             return JsonResponse({"deleted": count > 0})
-        except CustomerVO.DoesNotExist:
+        except Customer.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid customer ID"},
                 status=400,

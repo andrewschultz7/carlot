@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-
 class SalesPersonList extends React.Component {
     constructor(props) {
         super(props)
@@ -10,8 +9,6 @@ class SalesPersonList extends React.Component {
             salespeople: []
         }
     }
-
-
 
     async componentDidMount() {
         const url = 'http://localhost:8090/api/salespeople/';
@@ -21,11 +18,8 @@ class SalesPersonList extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ salespeople: data.salespeople });
-
-
         }
     }
-
 
     async handleDelete(id) {
         const salespeopleUrl = `http://localhost:8090/api/salespeople/${id}`
@@ -40,11 +34,7 @@ class SalesPersonList extends React.Component {
 
             this.componentDidMount();
         }
-
     }
-
-
-
 
     render() {
         return (
