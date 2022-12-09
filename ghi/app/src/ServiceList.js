@@ -62,6 +62,7 @@ class ServiceList extends React.Component {
                 <div className="row">
                     <div className="col">
                         <div className="shadow p-4 mt-4">
+                            <h1>Service Appointments</h1>
                             <table className="table table-lite table-striped">
                                 <thead className="table-dark">
                                     <tr>

@@ -74,7 +74,7 @@ class AutoForm extends React.Component {
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
-                            <h1>Add a new automobile</h1>
+                            <h1>Add a New Automobile</h1>
                             <form onSubmit={this.handleSubmit} id="create-auto-form">
                                 <div className="form-floating mb-3">
                                     <input onChange={this.handleChange} value={this.state.color} placeholder="Presenter name" required type="text" name="color"

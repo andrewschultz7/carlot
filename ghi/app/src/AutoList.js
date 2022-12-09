@@ -53,6 +53,7 @@ class AutoList extends React.Component {
                     {/* <div className="offset-3 col-6"> */}
                     <div className="col">
                         <div className="shadow p-4 mt-4">
+                            <h1>Automobiles</h1>
                             <table className="table table-lite table-striped">
                                 <thead className="table-dark">
                                     <tr>
