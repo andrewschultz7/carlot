@@ -68,7 +68,7 @@ def api_automobile(request, vin):
             content = json.loads(request.body)
             auto = Automobile.objects.get(vin=vin)
 
-            props = ["color", "year"]
+            props = ["color", "year", "sold"]
             for prop in props:
                 if prop in content:
                     setattr(auto, prop, content[prop])
@@ -95,6 +95,7 @@ def api_manufacturers(request):
     else:
         try:
             content = json.loads(request.body)
+            print('*******', content, '*******')
             manufacturer = Manufacturer.objects.create(**content)
             return JsonResponse(
                 manufacturer,
@@ -167,11 +168,11 @@ def api_vehicle_models(request):
         try:
             content = json.loads(request.body)
             manufacturer_id = content["manufacturer_id"]
-            manufacturer = Manufacturer.objects.get(id=manufacturer_id)
-            content["manufacturer"] = manufacturer
+            manufacturer2 = Manufacturer.objects.get(id=manufacturer_id)
+            content["manufacturer"] = manufacturer2
             model = VehicleModel.objects.create(**content)
             return JsonResponse(
-                model,
+                model,                                                                      #PROBLEM IS SOMEWHERE IN HERE
                 encoder=VehicleModelEncoder,
                 safe=False,
             )
