@@ -23,7 +23,6 @@ class ServiceList extends React.Component {
     }
 
     async handleFinished(id) {
-        // const data = { ...this.state }
         const appUrl2 = `http://localhost:8080/api/service/${id}/`
         const fetchConfig2 = {
             method: "PUT",
@@ -78,19 +77,19 @@ class ServiceList extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.appointments.map(appointments => {
+                                    {this.state.appointments.map(appointment => {
                                         return (
-                                            <tr key={appointments.id}>
-                                                <td>{appointments.vin}</td>
-                                                <td>{appointments.name}</td>
-                                                <td>{new Date(appointments.date_time).toDateString()}</td>
-                                                <td>{new Date(appointments.date_time).toLocaleTimeString()}</td>
-                                                <td>{appointments.technician.name}</td>
-                                                <td>{appointments.reason}</td>
-                                                <td>{String(appointments.vip)}</td>
+                                            <tr key={appointment.id}>
+                                                <td>{appointment.vin}</td>
+                                                <td>{appointment.name}</td>
+                                                <td>{new Date(appointment.date_time).toDateString()}</td>
+                                                <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                                                <td>{appointment.technician.name}</td>
+                                                <td>{appointment.reason}</td>
+                                                <td>{String(appointment.vip)}</td>
                                                 <td><div className="btn-group">
-                                                    <button type="button" className="btn btn-danger" onClick={() => this.handleDelete(appointments.id)} >Cancel</button>
-                                                    <button type="button" className="btn btn-secondary" onClick={() => this.handleFinished(appointments.id)} >Finished</button>
+                                                    <button type="button" className="btn btn-danger" onClick={() => this.handleDelete(appointment.id)} >Cancel</button>
+                                                    <button type="button" className="btn btn-secondary" onClick={() => this.handleFinished(appointment.id)} >Finished</button>
                                                 </div>
                                                 </td>
                                             </tr>

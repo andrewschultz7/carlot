@@ -60,10 +60,10 @@ class ManufacturerList extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.manufacturers.map(manufacturers => {
+                                    {this.state.manufacturers.map(manufacturer => {
                                         return (
-                                            <tr key={manufacturers.id}>
-                                                <td>{manufacturers.name}</td>
+                                            <tr key={manufacturer.id}>
+                                                <td>{manufacturer.name}</td>
                                             </tr>
                                         );
                                     })}

@@ -34,11 +34,8 @@ class AutoForm extends React.Component {
                 "Content-Type": "application/json",
             }
         }
-        console.log(data, "AAAAAAAAAAA")
         const response = await fetch(binUrl, fetchConfig);
         if (response.ok) {
-
-
             this.setState({
                 color: '',
                 year: '',
@@ -49,7 +46,6 @@ class AutoForm extends React.Component {
         }
 
     }
-
 
     handleChange(event) {
         const newState = {};
