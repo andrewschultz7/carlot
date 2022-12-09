@@ -35,4 +35,4 @@ class Sale(models.Model):
         on_delete=models.PROTECT,
     )
     price = models.PositiveBigIntegerField()
-    # sold = models.BooleanField(default=False)
+

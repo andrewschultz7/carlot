@@ -41,7 +41,15 @@ class SaleRecordForm extends React.Component {
         const response = await fetch(saleRecordUrl, fetchConfig);
         if (response.ok) {
 
-
+        const soldRecordUrl = `http://localhost:8100/api/automobiles/${data.auto}/`;
+        const soldFetchConfig = {
+            method: "put",
+            body: JSON.stringify({sold: true}),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(soldRecordUrl, soldFetchConfig);
             this.setState({
                 salesperson: '',
                 customer: '',
@@ -50,6 +58,7 @@ class SaleRecordForm extends React.Component {
             });
             this.props.useNavigate("/sales/");
         }
+
     }
 
     handleChange(event) {
@@ -65,7 +74,8 @@ class SaleRecordForm extends React.Component {
 
         if (response.ok) {
             const data = await response.json();
-            this.setState({ autos: data.autos});
+            const filteredAutos = data.autos.filter(auto => auto.sold === false);
+            this.setState({ autos: filteredAutos});
         };
     };
 
@@ -90,6 +100,7 @@ class SaleRecordForm extends React.Component {
             this.setState({ customers: data.customers});
         };
     };
+
     async componentDidMount() {
         this.automobileMount();
         this.salespeopleMount();
