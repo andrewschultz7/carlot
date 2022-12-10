@@ -22,12 +22,12 @@ function App(props) {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          {/* <Route path="/autos" element={<AutoList/>} />
-          <Route path="/autos/new" element={<AutoForm />} /> */}
+          <Route path="/autos" element={<AutoList/>} />
+          <Route path="/autos/new" element={<AutoForm />} />
           <Route path="/models" element={<ModelList />} />
           <Route path="/models/new" element={<ModelForm />} />
-          {/* <Route path="/manufacturers" element={<ManufacturerList />} />
-          <Route path="/manufacturers/new" element={<ManufacturerForm />} /> */}
+          <Route path="/manufacturers" element={<ManufacturerList />} />
+          <Route path="/manufacturers/new" element={<ManufacturerForm />} />
           <Route path="/sales" element={<SalesList />} />
           <Route path="/sales/new" element={<SaleRecordForm />} />
           <Route path="/sales/history" element={<SalesHistoryList />} />
