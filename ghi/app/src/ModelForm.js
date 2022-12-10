@@ -18,6 +18,7 @@ class ModelForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     };
 
     async handleSubmit(event) {
@@ -35,6 +36,7 @@ class ModelForm extends React.Component {
         const response = await fetch(modelsUrl, fetchConfig);
         if (response.ok) {
 
+
             this.setState({
                 name: '',
                 picture_url: '',
@@ -42,6 +44,7 @@ class ModelForm extends React.Component {
             });
             this.props.useNavigate("/models/");
         }
+
     }
 
 
@@ -59,8 +62,12 @@ class ModelForm extends React.Component {
         if (response.ok) {
             const data = await response.json();
             this.setState({ manufacturers: data.manufacturers });
+
+
         }
     }
+
+
 
     render() {
         return (
@@ -68,7 +75,7 @@ class ModelForm extends React.Component {
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
-                            <h1>Add a new model</h1>
+                            <h1>Add a New Model</h1>
                             <form onSubmit={this.handleSubmit} id="create-model-form">
                                 <div className="form-floating mb-3">
                                     <input onChange={this.handleChange} value={this.state.name} placeholder="Name" required type="text" name="name"

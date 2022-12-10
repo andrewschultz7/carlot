@@ -1,6 +1,5 @@
 # CarCar
 
-Team:
 
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
@@ -13,8 +12,5 @@ Explain your models and integration with the inventory
 microservice, here.
 
 ## Sales microservice
-
-Explain your models and integration with the inventory
-microservice, here.
 
 *****UPDATED README TO PUSH AND CREATE BRANCH*****
