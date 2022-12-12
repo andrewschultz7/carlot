@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import newid from './newid';
 
 
 function withNavigate(Component) {
@@ -14,7 +13,6 @@ class TechnicianForm extends React.Component {
         super(props)
         this.state = {
             name: '',
-            // employee_id = _.newid('emp'),
             employee_id: '',
 
         };
