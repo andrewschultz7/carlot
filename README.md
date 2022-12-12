@@ -1,4 +1,4 @@
-# Wardrobify
+# CarCar
 
 ### TEAM:
 
@@ -147,38 +147,42 @@ vin = models.CharField(max_length=17, unique=True)
 <br />
 <br />
 
-## HATS MICROSERVICE:
+## SALES MICROSERVICE:
 
-Back-end: Views use RESTful routes to add, delete, and view individual hats, or a list of hats.<br/>
-Front-end: Users can add, delete, and view individual hats or lists of hats using React and RESTful routes.
+Back-end: Views use RESTful routes to add, delete, and view individual sales, customers, and salespeople,  or a list of sales, customers, and salespeople.<br/>
+Front-end: Users can add, delete, and view individual sales, customers, and salespeople, or lists of sales, customers, or salespeople using React and RESTful routes.
 
-### Hats CRUD
+### SALES CRUD
 
 Home - http://localhost:3000<br/>
-List hats - http://localhost:3000/hats/<br/>
-Create a new hat - http://localhost:3000/hats/new/
+List sales - http://localhost:3000/sales/<br/>
+Create a new sale - http://localhost:3000/sales/new/<br/>
+View salesperson history - http://localhost:3000/sales/history<br/>
+List salespeople - http://localhost:3000/salespeople<br/>
+Create a new salesperson - http://localhost:3000/salespeople/new/<br/>
+List customers - http://localhost:3000/customers/<br/>
+Create a new customer - http://localhost:3000/customers/new/<br/>
 <br />
 <br />
 
-DELETE - http://localhost:8090/api/hats/5/
+DELETE - http://localhost:8090/api/sales/5/
     Example response:
  ```JSON
         {
             "deleted": true
         }
  ```
- POST - http://localhost:8090/api/hats/
+ POST - http://localhost:8090/api/sales/
     Example POST data:
  ```JSON
         {
-            "fabric": "Canvas",
-            "style": "Snapback",
-            "color": "Black",
-            "picture_url": "",
-            "location": 1
+            "auto": "1C3CC5FB2AN121174",
+            "salesperson": "1",
+            "customer": "1",
+            "price": "10"
         }
 ```
-GET (Hat Details) - http://localhost:8090/api/hats/1/
+GET (Sale Details) - http://localhost:8090/api/sales/1/
     Example response:
  ```JSON
         {
@@ -196,7 +200,7 @@ GET (Hat Details) - http://localhost:8090/api/hats/1/
             "id": 7
         }
 ```
-GET (Hat List) - http://localhost:8090/api/hats/
+GET (Sale List) - http://localhost:8090/api/sales/
     Example response:
 ```JSON
         {
@@ -232,15 +236,119 @@ GET (Hat List) - http://localhost:8090/api/hats/
             ]
         }
 ```
-### Hats Value Objects
+DELETE - http://localhost:8090/api/customers/5/
+    Example response:
+ ```JSON
+        {
+            "deleted": true
+        }
+ ```
+POST - http://localhost:8090/api/customers/
+    Example POST data:
+ ```JSON
+        {
+            "name": "Joe Customer",
+            "address": "123 House Road",
+            "phone": "1234567890"
+        }
+```
+GET (Customer Details) - http://localhost:8090/api/customers/1/
+    Example response:
+ ```JSON
+        {
+            "fabric": "Leather",
+            "style": "Cowboy",
+            "color": "Brown",
+            "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
+            "location": {
+                "closet_name": "Master bedroom",
+                "import_href": "/api/locations/1/",
+                "section_number": 1,
+                "shelf_number": 1,
+                "id": 2
+            },
+            "id": 7
+        }
+```
+GET (Customer List) - http://localhost:8090/api/customers/
+    Example response:
+```JSON
+{
+	"customers": [
+		{
+			"name": "Iwanna Buyacar",
+			"address": "123 Sellmestuff Ln",
+			"phone": "1234567890",
+			"id": 1
+		}
+	]
+}
+```
+DELETE - http://localhost:8090/api/salespeople/5/
+    Example response:
+ ```JSON
+        {
+            "deleted": true
+        }
+ ```
+ POST - http://localhost:8090/api/salespeople/
+    Example POST data:
+ ```JSON
+        {
+            "name": "John Salesman",
+            "employee_number": "159263"
+        }
+```
+GET (Salesperson Details) - http://localhost:8090/api/customers/1/
+    Example response:
+ ```JSON
+        {
+            "fabric": "Leather",
+            "style": "Cowboy",
+            "color": "Brown",
+            "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
+            "location": {
+                "closet_name": "Master bedroom",
+                "import_href": "/api/locations/1/",
+                "section_number": 1,
+                "shelf_number": 1,
+                "id": 2
+            },
+            "id": 7
+        }
+```
+GET (Salesperson List) - http://localhost:8090/api/salespeople/
+    Example response:
+```JSON
+{
+	"salespeople": [
+		{
+			"import_href": null,
+			"name": "Jane Saleswoman",
+			"employee_number": "123456",
+			"id": 3
+		},
+		{
+			"import_href": null,
+			"name": "John Salesman",
+			"employee_number": "123123",
+			"id": 4
+		},
+		{
+			"import_href": null,
+			"name": "Doug Dimmadome",
+			"employee_number": "159263",
+			"id": 5
+		}
+	]
+}
+```
+### Automobile Value Object
 
-LocationVO:
-import_href = models.CharField(max_length=200, unique=True)<br/>
-closet_name = models.CharField(max_length=200, null=True)<br/>
->*Name of the closet the hat is being assigned to*<br/>
+AutomobileVO:
+import_href = models.CharField(max_length=200, unique=True, null=True)<br/>
+vin = models.CharField(max_length=17, unique=True)<br/>
+>*Vehicle identification number of the specific vehicle in inventory*<br/>
 
-section_number = models.PositiveSmallIntegerField(null=True)<br/>
->*Section number in closet that hat is assigned to*<br/>
-
-shelf_number = models.PositiveSmallIntegerField(null=True)<br/>
->*Shelf number in section in closet*
+sold = models.BooleanField(default=False)<br/>
+>*Inventory status of the vehicle*<br/>
