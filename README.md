@@ -186,53 +186,80 @@ GET (Sale Details) - http://localhost:8090/api/sales/1/
     Example response:
  ```JSON
         {
-            "fabric": "Leather",
-            "style": "Cowboy",
-            "color": "Brown",
-            "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
-            "location": {
-                "closet_name": "Master bedroom",
-                "import_href": "/api/locations/1/",
-                "section_number": 1,
-                "shelf_number": 1,
-                "id": 2
+            "price": 10,
+            "salesperson": {
+                "import_href": null,
+                "name": "John Salesman",
+                "employee_number": "032495",
+                "id": 1
             },
-            "id": 7
+            "customer": {
+                "import_href": null,
+                "name": "Joe Customer",
+                "address": "123 House Road",
+                "phone": "1234567890",
+                "id": 1
+            },
+            "id": 1,
+            "auto": {
+                "import_href": "/api/automobiles/1C3CC5FB2AN115964/",
+                "vin": "1C3CC5FB2AN115964",
+                "sold": false,
+                "id": 1
+            }
         }
 ```
 GET (Sale List) - http://localhost:8090/api/sales/
     Example response:
 ```JSON
         {
-            "hats": [
-            {
-                "fabric": "Leather",
-                "style": "Cowboy",
-                "color": "Brown",
-                "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
-                "location": {
-                    "closet_name": "Master bedroom",
-                    "import_href": "/api/locations/1/",
-                    "section_number": 1,
-                    "shelf_number": 1,
-                    "id": 2
+            "sales": [
+                {
+                    "price": 10,
+                    "auto": {
+                        "import_href": "/api/automobiles/1C3CC5FB2AN115964/",
+                        "vin": "1C3CC5FB2AN115964",
+                        "sold": false,
+                        "id": 1
+                    },
+                    "salesperson": {
+                        "import_href": null,
+                        "name": "John Salesman",
+                        "employee_number": "032495",
+                        "id": 1
+                    },
+                    "customer": {
+                        "import_href": null,
+                        "name": "Joe Customer",
+                        "address": "123 House Road",
+                        "phone": "1234567890",
+                        "id": 1
+                    },
+                    "id": 1
                 },
-                "id": 7
-            },
-            {
-                "fabric": "Canvas",
-                "style": "Snapback",
-                "color": "Black",
-                "picture_url": "https://i5.walmartimages.com/asr/e93bbe67-775c-4eaa-bc80-e3a7a2b2d646_1.8e2bf5671bd6d0e755febf2cf46b4657.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-                "location": {
-                    "closet_name": "Master bedroom",
-                    "import_href": "/api/locations/1/",
-                    "section_number": 1,
-                    "shelf_number": 1,
+                {
+                    "price": 10,
+                    "auto": {
+                        "import_href": "/api/automobiles/1C3CC5FB2AN115964/",
+                        "vin": "1C3CC5FB2AN115964",
+                        "sold": false,
+                        "id": 1
+                    },
+                    "salesperson": {
+                        "import_href": null,
+                        "name": "John Salesman",
+                        "employee_number": "032495",
+                        "id": 1
+                    },
+                    "customer": {
+                        "import_href": null,
+                        "name": "Joe Customer",
+                        "address": "123 House Road",
+                        "phone": "1234567890",
+                        "id": 1
+                    },
                     "id": 2
-                },
-                "id": 9
-            }
+                }
             ]
         }
 ```
@@ -250,24 +277,6 @@ POST - http://localhost:8090/api/customers/
             "name": "Joe Customer",
             "address": "123 House Road",
             "phone": "1234567890"
-        }
-```
-GET (Customer Details) - http://localhost:8090/api/customers/1/
-    Example response:
- ```JSON
-        {
-            "fabric": "Leather",
-            "style": "Cowboy",
-            "color": "Brown",
-            "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
-            "location": {
-                "closet_name": "Master bedroom",
-                "import_href": "/api/locations/1/",
-                "section_number": 1,
-                "shelf_number": 1,
-                "id": 2
-            },
-            "id": 7
         }
 ```
 GET (Customer List) - http://localhost:8090/api/customers/
@@ -297,24 +306,6 @@ DELETE - http://localhost:8090/api/salespeople/5/
         {
             "name": "John Salesman",
             "employee_number": "159263"
-        }
-```
-GET (Salesperson Details) - http://localhost:8090/api/customers/1/
-    Example response:
- ```JSON
-        {
-            "fabric": "Leather",
-            "style": "Cowboy",
-            "color": "Brown",
-            "picture_url": "https://cdn11.bigcommerce.com/s-p3k2n80ho/images/stencil/1280x1280/products/9641/4414/SBWTMR__41091.1528206336.jpg?c=2",
-            "location": {
-                "closet_name": "Master bedroom",
-                "import_href": "/api/locations/1/",
-                "section_number": 1,
-                "shelf_number": 1,
-                "id": 2
-            },
-            "id": 7
         }
 ```
 GET (Salesperson List) - http://localhost:8090/api/salespeople/
